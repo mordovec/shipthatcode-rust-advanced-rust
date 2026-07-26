@@ -1,11 +1,13 @@
 use std::io::{self, BufRead};
+
+fn longer<'a>(a: &'a str, b: &'a str) -> &'a str {
+    if a.len() > b.len() { a } else { b }
+}
+
 fn main() {
     let stdin = io::stdin();
-    let mut line = String::new();
-    stdin.lock().read_line(&mut line).unwrap();
-    let n: i32 = line.trim().parse().unwrap();
-    let raw: *const i32 = &n;
-    unsafe {
-        println!("{}", *raw);
-    }
+    let mut lines = stdin.lock().lines();
+    let a = lines.next().unwrap().unwrap();
+    let b = lines.next().unwrap().unwrap();
+    println!("{}", longer(&a, &b));
 }
