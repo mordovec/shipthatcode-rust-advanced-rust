@@ -1,17 +1,11 @@
-// TODO: define macro_rules! sum! that takes any number of expressions and
-// returns their sum
-macro_rules! sum {
-    ($($x:expr),*) => {{
-        let variables = vec![$($x),*];
-        println!("{}", variables.iter().sum::<i32>())
-    }
-    }
-}
-
+use std::io::{self, BufRead};
 fn main() {
-    // TODO: read a single line of integers and parse each one
+    let stdin = io::stdin();
     let mut line = String::new();
-    std::io::stdin().read_line(&mut line).unwrap();
-    let a = line.split_whitespace().map(|x| x.parse::<i32>().unwrap()).collect::<Vec<_>>();
-    sum!(1, 2, 3, 4, 5);
+    stdin.lock().read_line(&mut line).unwrap();
+    let n: i32 = line.trim().parse().unwrap();
+    let raw: *const i32 = &n;
+    unsafe {
+        println!("{}", *raw);
+    }
 }
