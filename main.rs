@@ -1,8 +1,10 @@
 // TODO: define macro_rules! sum! that takes any number of expressions and
 // returns their sum
 macro_rules! sum {
-    ($v:expr) => {
-        println!("{}", $v.iter().sum::<i32>())
+    ($($x:expr),*) => {{
+        let variables = vec![$($x),*];
+        println!("{}", variables.iter().sum::<i32>())
+    }
     }
 }
 
@@ -11,5 +13,5 @@ fn main() {
     let mut line = String::new();
     std::io::stdin().read_line(&mut line).unwrap();
     let a = line.split_whitespace().map(|x| x.parse::<i32>().unwrap()).collect::<Vec<_>>();
-    sum!(a);
+    sum!(1, 2, 3, 4, 5);
 }
