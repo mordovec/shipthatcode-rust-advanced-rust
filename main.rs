@@ -1,10 +1,15 @@
-use std::cell::RefCell;
-use std::rc::Rc;
-fn main() {
-    let counter = Rc::new(RefCell::new(0));
-    for _ in 0..3 {
-        let c = Rc::clone(&counter);
-        *c.borrow_mut() += 1;
+// TODO: define macro_rules! sum! that takes any number of expressions and
+// returns their sum
+macro_rules! sum {
+    ($v:expr) => {
+        println!("{}", $v.iter().sum::<i32>())
     }
-    println!("{}", counter.borrow());
+}
+
+fn main() {
+    // TODO: read a single line of integers and parse each one
+    let mut line = String::new();
+    std::io::stdin().read_line(&mut line).unwrap();
+    let a = line.split_whitespace().map(|x| x.parse::<i32>().unwrap()).collect::<Vec<_>>();
+    sum!(a);
 }
